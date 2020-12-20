@@ -1,0 +1,142 @@
+<html>
+
+<head>
+    <title>JavaScript</title>
+    <style>
+        .hide {
+            display: none;
+        }
+        
+        .gameArea {
+            background-color: skyblue;
+            width: 100%;
+            height: 100%;
+            margin: auto;
+        }
+        
+        .score {
+            background-color: black;
+            color: white;
+            text-align: center;
+            height: 50px;
+            font-size: 1.5em;
+            font-family: fantasy;
+        }
+        
+        .startScreen {
+            position: absolute;
+            background-color: red;
+            left: 25%;
+            top: 100px;
+            color: white;
+            width: 50%;
+            padding: 15px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        
+        .bird {
+            position: absolute;
+            bottom: 100px;
+            left: 50px;
+            width: 50px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 1.5em;
+            background-image: url(bird.png);
+            background-size: cover;
+        }
+        
+        .wing {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            background-color: gold;
+            width: 25px;
+            height: 12px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="score"></div>
+    <div class="game">
+        <div class="startScreen">Press Start</div> <span class="gameMessage hide"></span>
+        <div class="gameArea"></div>
+    </div>
+    <script>
+        const score = document.querySelector(".score");
+        const startScreen = document.querySelector(".startScreen");
+        const gameArea = document.querySelector(".gameArea");
+        const gameMessage = document.querySelector(".gameMessage");
+        gameMessage.addEventListener("click", start);
+        startScreen.addEventListener("click", start);
+        document.addEventListener("keydown", pressOn);
+        document.addEventListener("keyup", pressOff);
+        let keys = {};
+        let player ={};
+
+        function start() {
+            console.log("start");
+            player.speed = 2;
+            gameMessage.classList.add("hide");
+            startScreen.classList.add("hide");
+            let bird = document.createElement("div");
+            bird.setAttribute("class", "bird");
+            let wing = document.createElement("span");
+            wing.setAttribute("class", "wing");
+            bird.appendChild(wing);
+            gameArea.appendChild(bird);
+            player.x = bird.offsetLeft;
+            player.y = bird.offsetTop;
+            window.requestAnimationFrame(playGame);
+        }
+
+
+        function playGame(){
+        console.log(player);
+            let bird = document.querySelector(".bird");
+            let wing = document.querySelector(".wing");
+            //https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+            if(keys.ArrowLeft){
+                player.x -= player.speed;
+            }
+            if(keys.ArrowRight){
+                player.x += player.speed;
+            }
+            if(keys.ArrowUp){
+                player.y -= player.speed;
+            }
+            if(keys.ArrowDown){
+                player.y += player.speed;
+            }
+
+
+
+
+
+            bird.style.top = player.y + "px";
+            bird.style.left = player.x + "px";
+
+
+
+
+            window.requestAnimationFrame(playGame);
+        }
+
+
+        function pressOn(e) {
+            e.preventDefault();
+            keys[e.code] = true;
+            console.log(keys);
+        }
+
+        function pressOff(e) {
+            e.preventDefault();
+            keys[e.code] = false;
+        }
+    </script>
+</body>
+
+</html>

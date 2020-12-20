@@ -1,0 +1,72 @@
+<html>
+
+<head>
+    <title>JavaScript</title>
+    <style>
+        .hide {
+            display: none;
+        }
+        
+        .gameArea {
+            background-color: skyblue;
+            width: 100%;
+            height: 100%;
+            margin: auto;
+        }
+        
+        .score {
+            background-color: black;
+            color: white;
+            text-align: center;
+            height: 50px;
+            font-size: 1.5em;
+            font-family: fantasy;
+        }
+        
+        .startScreen {
+            position: absolute;
+            background-color: red;
+            left: 25%;
+            top: 100px;
+            color: white;
+            width: 50%;
+            padding: 15px;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="score"></div>
+    <div class="game">
+        <div class="startScreen">Press Start</div> <span class="gameMessage hide"></span>
+        <div class="gameArea"></div>
+    </div>
+    <script>
+        const score = document.querySelector(".score");
+        const startScreen = document.querySelector(".startScreen");
+        const gameArea = document.querySelector(".gameArea");
+        const gameMessage = document.querySelector(".gameMessage");
+        gameMessage.addEventListener("click", start);
+        startScreen.addEventListener("click", start);
+        document.addEventListener("keydown", pressOn);
+        document.addEventListener("keyup", pressOff);
+
+        function start() {
+            console.log("start");
+            gameMessage.classList.add("hide");
+            startScreen.classList.add("hide");
+        }
+
+        function pressOn() {
+            console.log("On");
+        }
+
+        function pressOff() {
+            console.log("Off");
+        }
+    </script>
+</body>
+
+</html>
